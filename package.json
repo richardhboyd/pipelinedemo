@@ -1,0 +1,66 @@
+{
+  "name": "pipeline",
+  "version": "0.1.0",
+  "author": {
+    "name": "John Doe"
+  },
+  "main": "lib/index.js",
+  "license": "ISC",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "jsii",
+    "build:watch": "jsii -w",
+    "watch": "tsc -w",
+    "test": "jest",
+    "package": "jsii-pacmak"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.58.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "10.17.5",
+    "jest": "^25.5.0",
+    "jsii": "^1.10.0",
+    "jsii-pacmak": "^1.10.0",
+    "ts-jest": "^25.3.1",
+    "typescript": "~3.7.2"
+  },
+  "peerDependencies": {
+    "@aws-cdk/core": "1.58.0",
+    "@aws-cdk/aws-codebuild": "1.58.0",
+    "@aws-cdk/aws-codecommit": "1.58.0",
+    "@aws-cdk/aws-codepipeline": "1.58.0",
+    "@aws-cdk/aws-codepipeline-actions": "1.58.0",
+    "@aws-cdk/aws-s3": "1.58.0"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-codebuild": "1.58.0",
+    "@aws-cdk/aws-codecommit": "1.58.0",
+    "@aws-cdk/aws-codepipeline": "1.58.0",
+    "@aws-cdk/aws-codepipeline-actions": "1.58.0",
+    "@aws-cdk/aws-s3": "1.58.0",
+    "@aws-cdk/core": "1.58.0"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "python": {
+        "distName": "acme.hello-jsii",
+        "module": "acme.hello_jsii"
+      },
+      "java": {
+        "package": "com.acme.hello",
+        "maven": {
+          "groupId": "com.acme.hello",
+          "artifactId": "hello-jsii"
+        }
+      },
+      "dotnet": {
+        "namespace": "Acme.HelloNamespace",
+        "packageId": "Acme.HelloPackage"
+      }
+    }
+  },
+  "repository": {
+    "url": "https://github.com/acme/hello-jsii.git"
+  }
+}
