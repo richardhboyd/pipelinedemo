@@ -10,3 +10,7 @@ cdk.out
 
 # Parcel default cache directory
 .parcel-cache
+
+# jsii chicanery
+.jsii
+tsconfig.json
