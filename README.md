@@ -7,6 +7,4 @@ The construct defines an interface (`PipelineProps`) to configure the visibility
 
 ## Useful commands
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
+ * `sudo rm -rf ./node_modules/ && sudo rm -rf ./dist/ && docker run -v ${PWD}:/code -w="/code" -ti jsii/superchain /bin/bash -c "npm clean-install; npm run build; npm run package"`   compile typescript to js

@@ -1321,14 +1321,85 @@
     }
   },
   "types": {
-    "pipeline.BuildSystem": {
+    "pipeline.AzureDeploy": {
       "assembly": "pipeline",
-      "base": "@aws-cdk/core.Construct",
-      "fqn": "pipeline.BuildSystem",
+      "base": "@aws-cdk/aws-codepipeline-actions.CodeBuildAction",
+      "fqn": "pipeline.AzureDeploy",
       "initializer": {
         "locationInModule": {
           "filename": "lib/index.ts",
-          "line": 18
+          "line": 17
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "pipeline.AzureDeployProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 16
+      },
+      "name": "AzureDeploy"
+    },
+    "pipeline.AzureDeployProps": {
+      "assembly": "pipeline",
+      "datatype": true,
+      "fqn": "pipeline.AzureDeployProps",
+      "interfaces": [
+        "@aws-cdk/aws-codepipeline.CommonAwsActionProps"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 11
+      },
+      "name": "AzureDeployProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 13
+          },
+          "name": "input",
+          "type": {
+            "fqn": "@aws-cdk/aws-codepipeline.Artifact"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 12
+          },
+          "name": "projectName",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "pipeline.FanPipeline": {
+      "assembly": "pipeline",
+      "base": "@aws-cdk/core.Construct",
+      "fqn": "pipeline.FanPipeline",
+      "initializer": {
+        "locationInModule": {
+          "filename": "lib/index.ts",
+          "line": 34
         },
         "parameters": [
           {
@@ -1354,9 +1425,22 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 16
+        "line": 31
       },
-      "name": "BuildSystem"
+      "name": "FanPipeline",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 32
+          },
+          "name": "pipeline",
+          "type": {
+            "fqn": "@aws-cdk/aws-codepipeline.Pipeline"
+          }
+        }
+      ]
     },
     "pipeline.PipelineProps": {
       "assembly": "pipeline",
@@ -1371,14 +1455,10 @@
       "properties": [
         {
           "abstract": true,
-          "docs": {
-            "default": "Duration.seconds(300)",
-            "summary": "The visibility timeout to be configured on the SQS Queue, in seconds."
-          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 13
+            "line": 8
           },
           "name": "projectName",
           "type": {
@@ -1389,5 +1469,5 @@
     }
   },
   "version": "0.1.0",
-  "fingerprint": "0B+P2sTMbBNaxO92VSP2Kl2Q4XzZQ4tEiANU9LuHcrc="
+  "fingerprint": "kn1k/8tarnJnupDw0nVBjV+Xrt0OeqR4+9oTV5FSPJo="
 }
