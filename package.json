@@ -1,6 +1,6 @@
 {
   "name": "pipeline",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "author": {
     "name": "John Doe"
   },
@@ -45,19 +45,15 @@
     "outdir": "dist",
     "targets": {
       "python": {
-        "distName": "acme.hello-jsii",
-        "module": "acme.hello_jsii"
+        "distName": "acme.pipe-line",
+        "module": "acme.pipe_line"
       },
       "java": {
-        "package": "com.acme.hello",
+        "package": "com.acme.pipe",
         "maven": {
-          "groupId": "com.acme.hello",
-          "artifactId": "hello-jsii"
+          "groupId": "com.acme.pipe",
+          "artifactId": "pipe-line"
         }
-      },
-      "dotnet": {
-        "namespace": "Acme.HelloNamespace",
-        "packageId": "Acme.HelloPackage"
       }
     }
   },
