@@ -2,6 +2,7 @@ import * as cp from '@aws-cdk/aws-codepipeline';
 import * as cpa from '@aws-cdk/aws-codepipeline-actions';
 import * as cb from '@aws-cdk/aws-codebuild';
 import * as cc from '@aws-cdk/aws-codecommit';
+import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 
 export interface PipelineProps {
@@ -9,23 +10,36 @@ export interface PipelineProps {
 }
 
 export interface AzureDeployProps extends cp.CommonAwsActionProps {
-  readonly projectName: string;
+  readonly stageName: string;
   readonly input: cp.Artifact;
-  readonly buildspec: cb.BuildSpec;
 }
 
-export class AzureDeployAction extends cpa.CodeBuildAction {
+export class TerraformApplyAction extends cpa.CodeBuildAction {
   constructor(scope: cdk.Construct, props: AzureDeployProps) {
     super({
         ...props,
-        project: new cb.PipelineProject(scope, 'CdkBuild', {buildSpec: props.buildspec})
+        project: new cb.PipelineProject(scope, props.stageName, {
+          buildSpec: cb.BuildSpec.fromObject({
+            version: '0.2',
+            phases: {
+              install: {
+                commands: [
+                  'apt install unzip -y',
+                  'wget https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip',
+                  'unzip terraform_0.11.14_linux_amd64.zip',
+                  'mv terraform /usr/local/bin/'
+                ],
+              },
+              pre_build: {
+                commands: ['terraform init'],
+              },
+              build: {
+                commands: ['terraform apply -auto-approve'],
+              },
+            }
+          })
+        })
     });
-      
-    // actionName: 'CodeBuild',
-    // project,
-    // input: sourceOutput,
-    // outputs: [new codepipeline.Artifact()], // optional
-    console.log(props.projectName);
   }
 }
 
@@ -64,8 +78,10 @@ export class FanPipeline extends cdk.Construct {
 
     const sourceOutput = new cp.Artifact();
     const lambdaBuildOutput = new cp.Artifact('LambdaBuildOutput');
+    const artifactBucket = new s3.Bucket(this, "ArtifactBucket", {encryption:s3.BucketEncryption.KMS_MANAGED})
 
     this.pipeline = new cp.Pipeline(this, 'Pipeline', {
+      artifactBucket: artifactBucket,
       stages: [
         {
           stageName: 'Source',
@@ -90,5 +106,9 @@ export class FanPipeline extends cdk.Construct {
         }
       ],
     });
+  }
+
+  addStage(name: string, action: TerraformApplyAction) {
+    this.pipeline.addStage({stageName: name, actions: [action]})
   }
 }
