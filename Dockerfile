@@ -3,9 +3,9 @@ ARG DOMAIN_NAME
 ARG DOMAIN_OWNER
 ARG REPOSITORY_NAME
 ARG REGION
-# VOLUME ["/home/ec2-user/environment/pipeline"]
-WORKDIR /home/ec2-user/environment/pipeline
-COPY . .
+
+COPY . ./app
+WORKDIR ./app
 
 RUN curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip -qq awscliv2.zip && ./aws/install
 RUN npm install -g jsii-pacmak && npm install && npm run build

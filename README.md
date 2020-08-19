@@ -13,10 +13,10 @@ docker image prune --force
 docker volume prune --force
 docker build -t fan \
   --build-arg DOMAIN_NAME=testdomain \
-  --build-arg DOMAIN_OWNER=744682116483 `#Only needed if the domain is owned by an external account` \
-  --build-arg REPOSITORY_NAME=fnma \
+  --build-arg DOMAIN_OWNER=775000485103 `#Only needed if the domain is owned by an external account` \
+  --build-arg REPOSITORY_NAME=testrepo \
   --build-arg REGION=$REGION \
   .
 docker create --name extract2 fan:latest
-docker cp extract2:/home/ec2-user/environment/pipeline/dist ./dist
+docker cp extract2:/app/dist ./dist
 ```
